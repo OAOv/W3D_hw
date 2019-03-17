@@ -1,0 +1,11 @@
+#xmasTree {
+  z-index: -1;
+  position: absolute;
+  top: 30px;
+}
+
+#toggle {
+  z-index: 1;
+  position: absolute;
+  left: 280px;
+}
