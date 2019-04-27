@@ -1,0 +1,63 @@
+#gallery {
+	position: absolute;
+ 	width: 45vw;
+ 	height: 60vh;
+ 	left: 5vw;
+ 	margin: 10px 5vw;
+ 	text-align: center;
+ 	color: #15305b;
+}
+
+.surCamera {
+	position: absolute;
+	width: 10vw;
+	height: 10vw;
+	margin: 10px 2vw;
+	background-color: #000000;
+	float: right;
+}
+
+#sur0 {
+	left: 55vw;
+}
+
+#sur1 {
+	left: 67vw;
+}
+
+#sur2 {
+	left: 79vw;
+}
+
+#sur3 {
+	left: 55vw;
+	top: 35vh;
+}
+
+#sur4 {
+	left: 67vw;
+	top: 35vh;
+}
+
+#sur5 {
+	left: 79vw;
+	top: 35vh;
+}
+
+
+#info {
+	position: absolute;
+ 	width: 80vw;
+ 	left: 5vw;
+ 	margin: 65vh 5vw;
+ 	color: #15305b;
+}
+
+h1 {
+	text-align: center;
+ 	color: #15305b;
+}
+
+body {
+  overflow: hidden;
+}
