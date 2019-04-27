@@ -406,7 +406,7 @@ function init() {
   controls = new THREE.OrbitControls(camera, renderer.domElement);
 
   var gridXZ = new THREE.GridHelper(400, 20, 'red', 'white');
-  scene.add(gridXZ);
+  //scene.add(gridXZ);
 
   window.addEventListener('resize', onWindowResize, false);
   window.addEventListener('mousedown', onDocumentMouseDown, false);
@@ -423,7 +423,7 @@ function init() {
     side: THREE.DoubleSide,
     map: texture
   }))
-  //scene.add(floor)
+  scene.add(floor)
   floor.rotation.x = -Math.PI / 2
 
   /////////////////////////////////////////
