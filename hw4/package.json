@@ -1,0 +1,17 @@
+{
+  "name": "hw4",
+  "version": "1.0.0",
+  "main": "hw4.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js",
+    "build": "gcc main.cpp -o main"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.16.4",
+    "shelljs": "^0.8.3"
+  }
+}

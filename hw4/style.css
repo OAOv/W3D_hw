@@ -1,0 +1,24 @@
+body {
+  padding: 0px 20px;
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 3px #FFAC55 solid;
+}
+
+#display {
+  position: absolute;
+  width: 550px;
+  height: 550px;
+  border: 3px #3639db solid;
+}
+
+#content {
+  position: absolute;
+  left: 50vw;
+  width: 550px;
+  height: 550px;
+  padding: 0px 5px;
+}

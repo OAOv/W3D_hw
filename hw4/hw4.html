@@ -1,0 +1,27 @@
+<html>
+  <head>
+  	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  </head>
+  
+  <body onload="draw();">
+    <h1>
+      Homework 4
+    </h1>
+    <div id="display">
+    	<canvas id="rectangle" width="150px" height="60px"></canvas>
+    	<canvas id="circle" width="550px" height="550px"></canvas>
+    </div>
+    <div id="content">
+      <h2>
+        Radius&nbsp&nbsp
+        <input type="range" min="50" max="100" value="50" id="radius">
+        <br><br>
+        Sound
+      </h2>
+    </div>
+    <script type="text/javascript" src="hw4.js"></script>
+  </body>
+</html>
