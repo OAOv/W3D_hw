@@ -2,6 +2,11 @@ var shelljs = require('shelljs');
 var express = require('express');
 var app = express();
 
+
+///////
+//app.use(express.static(__dirname+'/public'));
+//app.use(express.static(__dirname + 'vendor'));
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/hw4.html');
 });
@@ -16,9 +21,11 @@ app.get ('/api', function (req, res) {
 	var Cy = req.query.Cy;
 	var rad = req.query.rad;
 		
-	shelljs.exec('main.exe ' + Rx + ' ' + Ry + ' ' + Rw + ' ' + Rh + ' ' + Cx + ' ' + Cy + ' ' + rad, function(status, output) {
+	shelljs.exec('a.exe ' + Rx + ' ' + Ry + ' ' + Rw + ' ' + Rh + ' ' + Cx + ' ' + Cy + ' ' + rad,
+				 function(status, output) {
 	  console.log('Exit status:', status);
 	  console.log('Program output:', output);
+	  //console.log("Rx: "+Rx+",Ry: "+Ry+",Rw: "+Rw+",Rh: "+Rh+",Cx: "+Cx+",Cy: "+Cy+",rad: "+rad);
 
       var output = {
         status: status,

@@ -1,9 +1,40 @@
 <html>
   <head>
-  	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
-	<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  	<!--link rel="stylesheet" href="vendor/style.css"-->
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+	  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+	  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <style>
+      body {
+        padding: 0px 20px;
+      }
+
+      h1 {
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 3px #FFAC55 solid;
+      }
+
+      #display {
+        position: absolute;
+        width: 550px;
+        height: 550px;
+        border: 3px #3639db solid;
+      }
+
+      #content {
+        position: absolute;
+        left: 50vw;
+        width: 550px;
+        height: 550px;
+        padding: 0px 5px;
+      }
+    </style>
+
+    <!--audio id="collision" style="display:none;">
+      <source src="/static/knocking.wav" type='audio/wav'>
+    </audio-->
   </head>
   
   <body onload="draw();">
@@ -19,9 +50,144 @@
         Radius&nbsp&nbsp
         <input type="range" min="50" max="100" value="50" id="radius">
         <br><br>
-        Sound
+        Sound&nbsp&nbsp
+        <button id="sound" style="width: 30px; height: 30px; text-align: center;">on</button>
       </h2>
     </div>
-    <script type="text/javascript" src="hw4.js"></script>
+    <!--script src="hw4.js"></script-->
+    <script>
+      var rec, recCtx, cir, cirCtx, rad;
+      var recX, recY;
+      var cirX, cirY, dirX, dirY;
+      var mouse = new THREE.Vector2();
+      var flag = 0, changeColor = 0;
+      var collision = document.getElementById ('collision');
+
+      function draw() {
+        console.log("draw!");
+
+        rec = document.getElementById('rectangle');
+        if(rec.getContext) {
+          console.log("rectangle");
+          recCtx = rec.getContext('2d');
+
+          recCtx.fillStyle = "#48556b";
+          recCtx.fillRect(0, 0, 150, 60);
+          rec.style.position = "absolute";
+          rec.style.left = 200;
+          rec.style.top = 245;
+          recX = 200;
+          recY = 245;
+        }
+
+        cir = document.getElementById('circle');
+        if(cir.getContext) {
+          console.log("circle");
+          cirCtx = cir.getContext('2d');
+
+          cirCtx.beginPath();
+          cirCtx.arc(cirX = Math.random() * 450 + 50, cirY = Math.random() * 450 +50, 50, 0, 2*Math.PI);
+          //cirCtx.arc(cirX = 200, cirY = 245, 50, 0, 2*Math.PI);
+          rad = 50;
+          cirCtx.lineWidth = 3;
+          cir.style.position = "absolute";
+          cirCtx.strokeStyle = "#FF0000";
+          cirCtx.stroke();
+        }
+
+        dirX = dirY = 1;
+
+        render();
+      }
+
+      init();
+
+      function init() {
+        var dis = document.getElementById('display');
+        if(dis) {
+          window.addEventListener('load', function(){
+            dis.addEventListener('mousedown', onDocumentMouseDown, false);
+          });
+        }
+      }
+
+      function animate() {
+
+        cirCtx.clearRect(0, 0, 550, 550);
+        cirCtx.beginPath();
+        cirCtx.arc(cirX += dirX, cirY += dirY, rad, 0, 2*Math.PI);
+        if(changeColor == 1 && flag == 1) {
+          cirCtx.fillStyle = "#FF0000";
+          cirCtx.fill();
+        }
+        cirCtx.strokeStyle = "#FF0000";
+        cirCtx.stroke();
+
+        if (cirX > 550 - rad || cirX < rad) {
+          dirX *= -1;
+        }
+        else if (cirY > 550 - rad || cirY < rad) {
+          dirY *= -1;
+        }
+      }
+
+      $('#radius').change(function() {
+        console.log($(this).val());
+        rad = $(this).val();
+        cirCtx.clearRect(0, 0, 550, 550);
+        cirCtx.beginPath();
+        cirCtx.arc(cirX, cirY, rad, 0, 2*Math.PI);
+        cirCtx.strokeStyle = "#FF0000";
+        cirCtx.stroke();
+      });
+
+      $('#sound').click(function() {
+        if(flag) {
+          $('#sound').text("On");
+          flag = 0;
+        }
+        else {
+          $('#sound').text("Off");
+          flag = 1;
+        }
+      });
+
+      function onDocumentMouseDown(event) {
+        rec.style.left = (event.clientX - 30 - 75);
+        rec.style.top = (event.clientY - 85 - 30);
+        recX = event.clientX - 30 - 75;
+        recY = event.clientY - 85 - 30;
+
+        //console.log("x: " + event.clientX + ", y: " + event.clientY);
+        //console.log("x: "+recX+", y: "+recY);
+      }
+
+      /////////////////////////////////////////////////////
+
+      function getPos () {
+        // Call api 
+        // Need to be replaced by a public ip address
+        $.get( "http://127.0.0.1:1337/api?Rx="+recX+"&Ry="+recY + "&Rw=150&Rh=60&Cx="+cirX+"&Cy="+cirY+"&rad=" + rad, function( data ) {
+          
+          //console.log("Rx: "+recX+",Ry: "+recY+",Cx: "+cirX+",Cy: "+cirY+",rad: "+rad);
+
+
+          changeColor = 0;
+          if(data.output == 1) {
+            changeColor = 1;
+            //collision.play();
+          }
+        });
+      }
+
+      var render = function () {
+        requestAnimationFrame( render );
+
+        getPos(); // should use setInterval (unless the Shell does not respond as fast
+
+        animate();
+      };
+    </script>
+
   </body>
 </html>

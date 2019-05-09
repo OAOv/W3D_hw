@@ -45,26 +45,27 @@ boolean Check_Intersect(Box2 *R, Point2 *C, double Rad)
      		return(TRUE);
 }
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
   Box2 R;
   Point2 C;
   double Rad;
 
-  if(argc != 7) {
+  if(argc != 8) {
     printf("%d\n", 0);
     exit(1);
   }
   else {
     R.min.x = atof(argv[1]);
     R.min.y = atof(argv[2]);
-    R.max.x = atof(argv[3] + argv[1]);
-    R.max.y = atof(argv[4] + argv[2]);
+    R.max.x = atof(argv[3]) + atof(argv[1]);
+    R.max.y = atof(argv[4]) + atof(argv[2]);
     C.x = atof(argv[5]);
-    C.x = atof(argv[6]);
+    C.y = atof(argv[6]);
     Rad = atof(argv[7]);
   }
 
+  //printf("%lf ,%lf ,%lf ,%lf ,%lf, %lf, %lf", R.min.x, R.min.y, R.max.x, R.max.y, C.x, C.y, Rad);
   printf("%d\n", Check_Intersect(&R, &C, Rad));
 
   /*R.min.x = 0;
