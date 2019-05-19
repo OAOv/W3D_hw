@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+
+<body>
+	<h1 id="title" style="text-align: center ;margin: 50px"></h1>
+	<div style="text-align: center;">
+		<input type="text" id="content" style="text-align: left; font-size: 1.5em; width: 700px;">
+		<input id="send" type="submit" value="send" style="text-align: center; font-size: 1.5em;">
+	</div>
+
+	<div style="margin: 20px; font-size: 1.5em;">
+		<table id="table" border="1" align="center" width="750px">
+		</table>
+	</div>
+</body>
+
+<script>
+	var name;
+	var nicknames = [];
+	var socket;
+	var flag = 0;
+	var table = document.getElementById("table"), row;
+
+	$('#send').click ( function() {
+		var msg = document.getElementById('content').value;
+		socket.emit ('sendMsg', document.location.search.match(/\?nickname=(.+)/)[1] + ": " + msg);
+		document.getElementById('content').value="";
+	});
+
+	$(function () {
+		socket = io();
+
+		let name = document.location.search.match(/\?nickname=(.+)/)[1];
+		socket.emit ('toggle', name);
+		
+		$('#title').text ('Hi, ' + name);
+
+		socket.on('used', function(name) {
+			console.log("in used");
+			alert(name + " was used!");
+  			history.go(-1);
+		});
+
+		socket.on('postMsg', function(msg) {
+  			row = table.insertRow(0);
+  			row.innerHTML = msg;
+  			row.style.margin = 2;
+
+  			if(flag) {
+  				row.style.backgroundColor = "#dce4f2";
+  				flag = 0;
+  			}
+  			else{
+  				row.style.backgroundColor = "#fceaee";
+  				flag = 1;
+  			}
+		});
+
+		socket.on('preMsg', function(msgs) {
+			for (var i = 0; i < msgs.length; i++) {
+	  			row = table.insertRow(0);
+	  			row.innerHTML = msgs[i];
+	  			row.style.margin = 2;
+
+	  			if(flag) {
+	  				row.style.backgroundColor = "#dce4f2";
+	  				flag = 0;
+	  			}
+	  			else{
+	  				row.style.backgroundColor = "#fceaee";
+	  				flag = 1;
+	  			}
+			}
+		});
+
+		socket.on('newUser', function(name) {
+  			row = table.insertRow(0);
+  			row.innerHTML = "Welcome, " + name;
+  			row.style.margin = 2;
+
+  			if(flag) {
+  				row.style.backgroundColor = "#dce4f2";
+  				flag = 0;
+  			}
+  			else{
+  				row.style.backgroundColor = "#fceaee";
+  				flag = 1;
+  			}
+		});
+	});
+</script>
+</html>
