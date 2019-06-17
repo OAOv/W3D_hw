@@ -38,7 +38,6 @@ var arToolkitSource, arToolkitContext;
 /////////////
 var whRatio, halfW, halfH;
 var button1, button2, button3;
-var objects = [];
 var _iOSDevice;
 init();
 animate();
@@ -85,25 +84,21 @@ function init() {
 			new THREE.MeshBasicMaterial({color:"red", transparent:true, opacity:0.8}));	
 	button1 = new Button (buttonSize, halfH/2, -halfH/2);
 	button.position.set (button1.centerX, button1.centerY, 0);
-	objects.push (button);
-	objects[0].name = 'Cake';
+	sceneHUD.add(button);
 
 	var buttonSize = halfH/3;
 	button = new THREE.Mesh (new THREE.PlaneGeometry(buttonSize, buttonSize), 
 			new THREE.MeshBasicMaterial({color:"yellow", transparent:true, opacity:0.8}));	
 	button2 = new Button (buttonSize, 0, -halfH/2);
 	button.position.set (button2.centerX, button2.centerY, 0);
-	objects.push (button);
-	objects[1].name = 'Milkshake';
+	sceneHUD.add(button);
 
 	var buttonSize = halfH/3;
 	button = new THREE.Mesh (new THREE.PlaneGeometry(buttonSize, buttonSize), 
 			new THREE.MeshBasicMaterial({color:"blue", transparent:true, opacity:0.8}));	
 	button3 = new Button (buttonSize, -halfH/2, -halfH/2);
 	button.position.set (button3.centerX, button3.centerY, 0);
-	objects.push (button);
-	objects[2].name = 'PinaColada';
-	sceneHUD.add(objects);
+	sceneHUD.add(button);
 
 	
 	////////////////////////////////////////////////////////////////////////////////
