@@ -224,19 +224,19 @@ function pickCompute (ndcX, ndcY) {
 	//$('#touch').text ('Mouse-dist-Button: ' + dist.toFixed(2))
 	
 	if (dist < button1.size/2) {
-		console.log ('Cake!')
+		console.log ('Cake')
 		readModel('Cake');
 	}
 
 	dist = button2.dInfTo ([halfW * ndcX, halfH * ndcY]);	
 	if (dist < button2.size/2) {
-		console.log ('Milkshake!')
-		readModel('Milkshake');
+		console.log ('Coffee_Cup')
+		readModel('Coffee_Cup');
 	}
 
 	dist = button3.dInfTo ([halfW * ndcX, halfH * ndcY]);
 	if (dist < button3.size/2) {
-		console.log ('PinaColada!')
+		console.log ('PinaColada')
 		readModel('PinaColada');
 	}
 }
@@ -260,7 +260,7 @@ function onTouchStart (event) {
 	}	
 }
 
-function readModel (modelName, targetSize=10) {
+function readModel (modelName, targetSize=40) {
   var onProgress = function(xhr) {
     if (xhr.lengthComputable) {
       var percentComplete = xhr.loaded / xhr.total * 100;
@@ -306,7 +306,8 @@ function unitize (object, targetSize) {
 	theObject.add (object);
 	object.scale.set (scaleSet, scaleSet, scaleSet);
 	object.position.set (-center.x*scaleSet, -center.y*scaleSet, -center.z*scaleSet);
-	
+	//object.position.set(0, 0, 0)
+
 	return theObject;
 			
 }
