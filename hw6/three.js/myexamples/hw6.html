@@ -85,7 +85,7 @@ function init() {
 			new THREE.MeshBasicMaterial({color:"red", transparent:true, opacity:0.8}));	
 	button1 = new Button (buttonSize, halfH/2, -halfH/2);
 	button.position.set (button1.centerX, button1.centerY, 0);
-	objects.add (button);
+	objects.push (button);
 	objects[0].name = 'Cake';
 
 	var buttonSize = halfH/3;
@@ -93,7 +93,7 @@ function init() {
 			new THREE.MeshBasicMaterial({color:"yellow", transparent:true, opacity:0.8}));	
 	button2 = new Button (buttonSize, 0, -halfH/2);
 	button.position.set (button2.centerX, button2.centerY, 0);
-	objects.add (button);
+	objects.push (button);
 	objects[1].name = 'Milkshake';
 
 	var buttonSize = halfH/3;
@@ -101,7 +101,7 @@ function init() {
 			new THREE.MeshBasicMaterial({color:"blue", transparent:true, opacity:0.8}));	
 	button3 = new Button (buttonSize, -halfH/2, -halfH/2);
 	button.position.set (button3.centerX, button3.centerY, 0);
-	objects.add (button);
+	objects.push (button);
 	objects[2].name = 'PinaColada';
 	sceneHUD.add(objects);
 
@@ -230,13 +230,13 @@ function pickCompute (ndcX, ndcY) {
 		readModel('Cake');
 	}
 
-	let dist = button2.dInfTo ([halfW * ndcX, halfH * ndcY]);	
+	dist = button2.dInfTo ([halfW * ndcX, halfH * ndcY]);	
 	if (dist < button2.size/2) {
 		console.log ('Milkshake!')
 		readModel('Milkshake');
 	}
 
-	let dist = button3.dInfTo ([halfW * ndcX, halfH * ndcY]);
+	dist = button3.dInfTo ([halfW * ndcX, halfH * ndcY]);
 	if (dist < button3.size/2) {
 		console.log ('PinaColada!')
 		readModel('PinaColada');
