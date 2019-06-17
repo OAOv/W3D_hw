@@ -280,7 +280,7 @@ function readModel (modelName, targetSize=40) {
 		let theObject =  unitize (object, targetSize);
 		theObject.add ( new THREE.BoxHelper (theObject) )
 		theObject.name = 'OBJ'
-		scene.add (theObject);
+		sceneHUD.add (theObject);
     }, onProgress, onError);
   });
 }
