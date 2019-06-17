@@ -260,7 +260,7 @@ function onTouchStart (event) {
 	}	
 }
 
-function readModel (modelName, targetSize=40) {
+function readModel (modelName, targetSize=10) {
   var onProgress = function(xhr) {
     if (xhr.lengthComputable) {
       var percentComplete = xhr.loaded / xhr.total * 100;
