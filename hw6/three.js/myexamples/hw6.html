@@ -8,6 +8,10 @@
 <script src="../build/ar.js"></script>
 <script>THREEx.ArToolkitContext.baseURL = '../'</script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+<script src="https://rawgit.com/mrdoob/three.js/master/examples/js/loaders/MTLLoader.js"></script>
+<script src="https://rawgit.com/mrdoob/three.js/master/examples/js/loaders/OBJLoader.js"></script>
+
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
 <div style='position:absolute;top:15vh;text-align:center;color:yellow;width:100%'>
 <p id='touch'></p>
@@ -182,7 +186,6 @@ function animate() {
 	arToolkitContext.update( arToolkitSource.domElement )
 	renderer.clear();
 	renderer.render (scene, camera);
-	button.material.visible = markerRoot.visible;
 	renderer.render (sceneHUD, cameraHUD);
 }
 	
